@@ -15,11 +15,11 @@
 
  		public static function getFormList() {
  			$forms = Form::all();
-			
+ 			
 			return $forms;
  		}
 
- 		public static function findFormByID($id) {
+ 		public static function findFormByID	($id) {
  			$form = Form::find($id);
 
  			return $form;

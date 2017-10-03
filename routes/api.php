@@ -38,3 +38,8 @@ Route::put('/form/{id}', [
 Route::delete('/form/{id}', [
 	'uses' => 'FormController@deleteForm'
 ]);
+
+// {@param} => id
+Route::get('/form/pdf/{id}', [
+	'uses' => 'FormController@downloadForm'
+]);

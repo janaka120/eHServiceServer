@@ -18,19 +18,12 @@ class FormController extends Controller{
 	}
 
 	public function getForms() {
-
 		return FormService::getFormList();
 	}
 
 	// update form
 	public function putForm(Request $request, $id) {
-		$form = Form::find($id);
-		if(!$form) {
-			return response()->json([], 404);
-		}
-		$form->content = $request->input('content');
-		$form->update();
-		return response()->json(['form' => $form], 200);
+		return FormService::updateForm($id, $request->input('content'));
 	}
 
 	public function deleteForm($id) {
@@ -40,5 +33,9 @@ class FormController extends Controller{
 		}
 		$form->delete();
 		return response()->json(["message" => "Successfully delete."], 200);
+	}
+
+	public function downloadForm($id) {
+		return FormService::downloadFormPDF($id);
 	}
 }
