@@ -9,7 +9,8 @@ use App\Services\MailService;
 use PDF;
 
 class FormService{
-	 	
+	 
+	const APPBASEURL =  'http://localhost:8090/';
  	/*
  		name => form_name,
  		content => form_content
@@ -74,7 +75,8 @@ class FormService{
 		if(!$pdf) {
 			return response()->json(['success' => false, 'data' => null]);	
 		}
-		$pdfUrl =  'storage/report_storage/'.$pdfName;
+
+		$pdfUrl = self::APPBASEURL.'storage/report_storage/'.$pdfName;
 		
 		return response()->json(['success' => true, 'data' => $pdfUrl]);
 	}
