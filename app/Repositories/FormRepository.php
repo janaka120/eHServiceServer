@@ -36,5 +36,21 @@
 			
 			return $form;
  		}
+
+ 		public static function getFormListByGivenDate($from, $limit) {
+
+			$result = Form::where('updated_at', '<=', $from)->orderBy('updated_at','desc')->limit($limit)->get();
+			
+			return $result;
+ 		}
+
+ 		public static function getPageCount($limit) {
+ 			$count = Form::count();
+
+ 			if($count % $limit === 0) {
+ 				return intdiv($count, $limit);
+ 			}
+ 			return intdiv($count, $limit) + 1;
+ 		}
 	}
 ?>

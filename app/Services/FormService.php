@@ -1,11 +1,11 @@
 <?php 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Storage;
-
-use Illuminate\Foundation\Http\response;
 use App\Repositories\FormRepository;
 use App\Services\MailService;
+use Carbon\Carbon;
+use Illuminate\Foundation\Http\response;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 
 class FormService{
@@ -79,6 +79,26 @@ class FormService{
 		$pdfUrl = self::APPBASEURL.'storage/report_storage/'.$pdfName;
 		
 		return response()->json(['success' => true, 'data' => $pdfUrl]);
+	}
+
+	public static function getFormListByGivenDate($fromDate, $limit) {
+		
+		$from = Carbon::createFromTimestamp($fromDate);
+
+		$forms = FormRepository::getFormListByGivenDate($from, $limit);
+
+		if(!$forms && count($forms) === 0) {
+			return response()->json(['success' => false, 'data' => null]);
+		}
+
+		$noOfPages = FormRepository::getPageCount($limit);
+		
+		$data = [
+			'forms' => $forms,
+			'noOfPages' => $noOfPages
+		];
+
+		return response()->json(['success' => true, 'data' => $data]);
 	}
 
 }

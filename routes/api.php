@@ -43,3 +43,7 @@ Route::delete('/form/{id}', [
 Route::get('/form/pdf/{id}', [
 	'uses' => 'FormController@downloadForm'
 ]);
+
+Route::get('/limitForm/', [	
+	'uses' => 'FormController@getFormListByGivenDate'
+]);

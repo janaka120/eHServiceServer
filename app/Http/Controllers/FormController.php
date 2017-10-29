@@ -38,4 +38,20 @@ class FormController extends Controller{
 	public function downloadForm($id) {
 		return FormService::downloadFormPDF($id);
 	}
+
+	public function getFormListByGivenDate(Request $request) {
+
+		if (!($request->has('from') && $request->has('limit'))) {
+			return response()->json(['success' => false, 'message' => 'validation failed.', 'data' => null]);
+		}
+
+		// $this->validate($request, [
+	 //        'from' => 'required|integer',
+	 //        'limit' => 'required|integer',
+	 //    ]);
+
+		$fromDate = $request->input('from');
+		$limit = $request->input('limit');
+		return FormService::getFormListByGivenDate($fromDate, $limit);
+	}
 }
